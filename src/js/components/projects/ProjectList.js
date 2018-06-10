@@ -3,6 +3,8 @@ import { connect } from "react-redux"
 import { Panel, Grid } from "react-bootstrap"
 import { deleteProjectAction } from "./../../actions/projects"
 import TaskList from "./../tasks/TaskList"
+import EditProjectForm from "./EditProjectForm"
+import sortBy from "lodash/sortBy"
 
 const ProjectList = props => {
   return (
@@ -11,6 +13,7 @@ const ProjectList = props => {
         <Panel key={project.id}>
           <Panel.Heading>
             {project.text}
+            <EditProjectForm project={project} />
             <span className="pull-right" onClick={e => props.onDelete(project)}>
               &nbsp; Delete
             </span>
@@ -23,7 +26,7 @@ const ProjectList = props => {
 }
 
 const mapStateToProps = (store, ownProps) => ({
-  projects: store.projects
+  projects: sortBy(store.projects, ["id"])
 })
 
 const mapDispatchToProps = (dispatch, ownProps) => ({
