@@ -9,7 +9,7 @@ const createProject = (e, onSubmit) => {
   input.value = ""
 }
 
-const Form = props => (
+const ProjectForm = props => (
   <Grid>
     <form onSubmit={e => createProject(e, props.onSubmit)}>
       <FormControl type="text" inputRef={node => (input = node)} />
@@ -18,4 +18,4 @@ const Form = props => (
   </Grid>
 )
 
-export default Form
+export default ProjectForm

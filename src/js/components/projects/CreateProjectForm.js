@@ -1,6 +1,6 @@
 import { connect } from "react-redux"
-import { addProjectAction } from "./../actions/projects"
-import Form from "./Form"
+import { addProjectAction } from "./../../actions/projects"
+import ProjectForm from "./ProjectForm"
 
 const mapDispatchToProps = (dispatch, ownProps) => ({
   onSubmit: project => {
@@ -8,4 +8,4 @@ const mapDispatchToProps = (dispatch, ownProps) => ({
   }
 })
 
-export default connect(null, mapDispatchToProps)(Form)
+export default connect(null, mapDispatchToProps)(ProjectForm)
