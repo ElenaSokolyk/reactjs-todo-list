@@ -1,6 +1,4 @@
 import React from "react"
-import { connect } from "react-redux"
-import { addProjectAction } from "./../actions/projects"
 import { Grid, FormControl } from "react-bootstrap"
 
 let input
@@ -20,10 +18,4 @@ const Form = props => (
   </Grid>
 )
 
-const mapDispatchToProps = (dispatch, ownProps) => ({
-  onSubmit: project => {
-    dispatch(addProjectAction(project))
-  }
-})
-
-export default connect(null, mapDispatchToProps)(Form)
+export default Form
