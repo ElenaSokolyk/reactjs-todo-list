@@ -3,7 +3,7 @@ import { connect } from "react-redux"
 import { Panel, Grid } from "react-bootstrap"
 import { deleteProjectAction } from "./../../actions/projects"
 import TaskList from "./../tasks/TaskList"
-import EditProjectForm from "./EditProjectForm"
+import ProjectText from "./ProjectText"
 import sortBy from "lodash/sortBy"
 
 const ProjectList = props => {
@@ -12,11 +12,7 @@ const ProjectList = props => {
       {props.projects.map(project => (
         <Panel key={project.id}>
           <Panel.Heading>
-            {project.text}
-            <EditProjectForm project={project} />
-            <span className="pull-right" onClick={e => props.onDelete(project)}>
-              &nbsp; Delete
-            </span>
+            <ProjectText project={project} onDelete={props.onDelete} />
           </Panel.Heading>
           <TaskList projectId={project.id} />
         </Panel>

@@ -9,6 +9,7 @@ const EditProjectForm = props => {
   const updateProject = (e, projectId, onUpdate) => {
     e.preventDefault()
     onUpdate(projectId, newProjectName.value)
+    props.closeForm()
   }
 
   return (
