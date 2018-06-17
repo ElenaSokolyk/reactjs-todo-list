@@ -9,3 +9,9 @@ export const deleteTaskAction = taskId => ({
   type: "DELETE_TASK",
   id: taskId
 })
+
+export const updateTaskAction = (taskId, taskName) => ({
+  type: "UPDATE_TASK",
+  id: taskId,
+  text: taskName
+})
