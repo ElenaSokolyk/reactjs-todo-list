@@ -20,7 +20,20 @@ class TaskText extends React.Component {
     } else {
       return (
         <div>
-          <span>{this.props.task.text}</span>
+          <input
+            type="checkbox"
+            checked={this.props.task.completed}
+            onChange={e => this.props.onCompletionChange(this.props.task.id)}
+          />
+          <span
+            style={{
+              textDecoration: this.props.task.completed
+                ? "line-through"
+                : "none",
+              marginLeft: "10px"
+            }}>
+            {this.props.task.text}
+          </span>
           <div className="pull-right">
             <span onClick={this.toggleEditMode}>&nbsp; Edit</span>
             <span onClick={e => this.props.onDelete(this.props.task)}>

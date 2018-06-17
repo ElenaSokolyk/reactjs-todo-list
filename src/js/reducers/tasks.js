@@ -2,6 +2,8 @@ import reject from "lodash/reject"
 import find from "lodash/find"
 
 export const tasksReducer = (state = [], action) => {
+  let task, tasks
+
   switch (action.type) {
     case "ADD_TASK":
       return [...state, action.task]
@@ -10,10 +12,15 @@ export const tasksReducer = (state = [], action) => {
     case "DELETE_TASK":
       return reject(state, ["id", action.id])
     case "UPDATE_TASK":
-      let taskToUpdate = find(state, { id: action.id })
-      let tasks = reject(state, ["id", action.id])
-      taskToUpdate.text = action.text
-      return [...tasks, taskToUpdate]
+      task = find(state, { id: action.id })
+      tasks = reject(state, ["id", action.id])
+      task.text = action.text
+      return [...tasks, task]
+    case "COMPLETION_CHANGE_TASK":
+      task = find(state, { id: action.id })
+      tasks = reject(state, ["id", action.id])
+      task.completed = !task.completed
+      return [...tasks, task]
     default:
       return state
   }

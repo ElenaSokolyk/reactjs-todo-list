@@ -3,7 +3,11 @@ import { connect } from "react-redux"
 import { ListGroup, ListGroupItem } from "react-bootstrap"
 import TaskForm from "./TaskForm"
 import filter from "lodash/filter"
-import { addTaskAction, deleteTaskAction } from "./../../actions/tasks"
+import {
+  addTaskAction,
+  deleteTaskAction,
+  completeChangeTaskAction
+} from "./../../actions/tasks"
 import TaskText from "./TaskText"
 import sortBy from "lodash/sortBy"
 
@@ -12,7 +16,11 @@ const TaskList = props => {
     <ListGroup>
       {props.tasks.map(task => (
         <ListGroupItem key={task.id}>
-          <TaskText task={task} onDelete={props.onDelete} />
+          <TaskText
+            task={task}
+            onDelete={props.onDelete}
+            onCompletionChange={props.onCompletionChange}
+          />
         </ListGroupItem>
       ))}
       <ListGroupItem>
@@ -36,6 +44,9 @@ const mapDispatchToProps = (dispatch, ownProps) => ({
   },
   onDelete: taskId => {
     dispatch(deleteTaskAction(taskId))
+  },
+  onCompletionChange: taskId => {
+    dispatch(completeChangeTaskAction(taskId))
   }
 })
 
