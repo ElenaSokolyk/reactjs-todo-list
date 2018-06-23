@@ -6,7 +6,8 @@ import filter from "lodash/filter"
 import {
   addTaskAction,
   deleteTaskAction,
-  completeChangeTaskAction
+  completeChangeTaskAction,
+  setTaskDeadlineAction
 } from "./../../actions/tasks"
 import TaskText from "./TaskText"
 import sortBy from "lodash/sortBy"
@@ -20,6 +21,7 @@ const TaskList = props => {
             task={task}
             onDelete={props.onDelete}
             onCompletionChange={props.onCompletionChange}
+            onSetDeadline={props.onSetDeadline}
           />
         </ListGroupItem>
       ))}
@@ -47,6 +49,11 @@ const mapDispatchToProps = (dispatch, ownProps) => ({
   },
   onCompletionChange: taskId => {
     dispatch(completeChangeTaskAction(taskId))
+  },
+  onSetDeadline: (taskId, taskDeadline) => {
+    console.log(taskId)
+    console.log(taskDeadline)
+    dispatch(setTaskDeadlineAction(taskId, taskDeadline))
   }
 })
 

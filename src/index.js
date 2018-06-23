@@ -4,6 +4,7 @@ import App from "./App"
 import { createStore } from "redux"
 import { Provider } from "react-redux"
 import rootReducer from "./js/reducers/index"
+import "react-datetime/css/react-datetime.css"
 
 const store = createStore(rootReducer)
 

@@ -21,6 +21,12 @@ export const tasksReducer = (state = [], action) => {
       tasks = reject(state, ["id", action.id])
       task.completed = !task.completed
       return [...tasks, task]
+    case "SET_TASK_DEADLINE":
+      task = find(state, { id: action.id })
+      tasks = reject(state, ["id", action.id])
+      task.deadline = action.deadline
+      console.log(task.deadline)
+      return [...tasks, task]
     default:
       return state
   }
