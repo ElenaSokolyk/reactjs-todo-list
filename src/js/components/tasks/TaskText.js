@@ -22,7 +22,7 @@ class TaskText extends React.Component {
   deadline = this.props.task.deadline // TODO: move to state
 
   changeDate = date => {
-    this.props.task.deadline = date.format("DD/MM/YYYY, kk:mm")
+    this.props.task.deadline = date.format("DD/MM/YYYY, HH:mm")
   }
 
   render() {
@@ -32,7 +32,7 @@ class TaskText extends React.Component {
           value={this.deadline}
           onChange={this.changeDate}
           dateFormat="DD/MM/YYYY"
-          timeFormat="kk:mm"
+          timeFormat="HH:mm"
         />
         <Button onClick={e => this.setDeadline()}>Save</Button>
       </Popover>
@@ -43,22 +43,24 @@ class TaskText extends React.Component {
       )
     } else {
       return (
-        <div>
-          <input
-            type="checkbox"
-            checked={this.props.task.completed}
-            onChange={e => this.props.onCompletionChange(this.props.task.id)}
-          />
-          <span
-            style={{
-              textDecoration: this.props.task.completed
-                ? "line-through"
-                : "none",
-              marginLeft: "10px"
-            }}>
-            {this.props.task.text}
-          </span>
-          <div style={{ color: "green" }}>{this.props.task.deadline}</div>
+        <div className="clearfix">
+          <div className="pull-left">
+            <input
+              type="checkbox"
+              checked={this.props.task.completed}
+              onChange={e => this.props.onCompletionChange(this.props.task.id)}
+            />
+            <span
+              style={{
+                textDecoration: this.props.task.completed
+                  ? "line-through"
+                  : "none",
+                marginLeft: "10px"
+              }}>
+              {this.props.task.text}
+            </span>
+            <div style={{ color: "green" }}>{this.props.task.deadline}</div>
+          </div>
           <div className="pull-right">
             <OverlayTrigger
               trigger="click"
