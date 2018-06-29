@@ -1,21 +1,24 @@
 import React from "react"
-import PropTypes from "prop-types"
 import EditTaskForm from "./EditTaskForm"
 import { Glyphicon, Popover, OverlayTrigger, Button } from "react-bootstrap"
 import Datetime from "react-datetime"
+import CommentsModal from "./../comments/CommentsModal"
 
 class TaskText extends React.Component {
   constructor(props) {
     super(props)
-    this.state = { editMode: false }
+    this.state = { editMode: false, showComments: false }
   }
 
   toggleEditMode = () => {
     this.setState({ editMode: !this.state.editMode })
   }
 
+  toggleComments = () => {
+    this.setState({ showComments: !this.state.showComments })
+  }
+
   setDeadline = () => {
-    console.log(this.props.task)
     this.props.onSetDeadline(this.props.task.id, this.props.task.deadline)
   }
 
@@ -62,6 +65,9 @@ class TaskText extends React.Component {
             <div style={{ color: "green" }}>{this.props.task.deadline}</div>
           </div>
           <div className="pull-right">
+            <span onClick={this.toggleComments} style={{ marginRight: "10px" }}>
+              <Glyphicon glyph="comment" />
+            </span>
             <OverlayTrigger
               trigger="click"
               rootClose
@@ -76,6 +82,11 @@ class TaskText extends React.Component {
               <Glyphicon glyph="trash" />
             </span>
           </div>
+          <CommentsModal
+            open={this.state.showComments}
+            onClose={this.toggleComments}
+            taskId={this.props.task.id}
+          />
         </div>
       )
     }

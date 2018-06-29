@@ -51,8 +51,6 @@ const mapDispatchToProps = (dispatch, ownProps) => ({
     dispatch(completeChangeTaskAction(taskId))
   },
   onSetDeadline: (taskId, taskDeadline) => {
-    console.log(taskId)
-    console.log(taskDeadline)
     dispatch(setTaskDeadlineAction(taskId, taskDeadline))
   }
 })
