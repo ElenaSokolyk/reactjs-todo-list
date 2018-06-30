@@ -2,13 +2,14 @@ import moment from "moment"
 
 let nextCommentId = 1
 
-export const addCommentAction = (commentText, taskId) => ({
+export const addCommentAction = comment => ({
   type: "ADD_COMMENT",
   comment: {
     id: nextCommentId++,
-    text: commentText,
-    taskId: taskId,
-    createdAt: moment().format("DD/MM/YYYY, k:mm")
+    text: comment.text,
+    taskId: comment.taskId,
+    createdAt: moment().format("DD/MM/YYYY, k:mm"),
+    preview: comment.preview
   }
 })
 

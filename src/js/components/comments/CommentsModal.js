@@ -3,21 +3,28 @@ import { connect } from "react-redux"
 import { Modal, Button, FormControl } from "react-bootstrap"
 import { addCommentAction } from "./../../actions/comments"
 import CommentList from "./CommentList"
+import Dropzone from "react-dropzone"
+import "./../../../css/main.css"
 
 class CommentsModal extends React.Component {
   constructor(props) {
     super(props)
-    this.state = { commentText: "" }
+    this.state = { commentText: "", preview: "" }
   }
 
   addComment = e => {
     e.preventDefault()
-    this.props.onCommentSubmit(this.state.commentText)
-    this.setState({ commentText: "" })
+    let comment = { text: this.state.commentText, preview: this.state.preview }
+    this.props.onCommentSubmit(comment)
+    this.setState({ commentText: "", preview: "" })
   }
 
   setComment = e => {
     this.setState({ commentText: e.target.value })
+  }
+
+  onDrop = files => {
+    this.setState({ preview: files[0].preview })
   }
 
   render() {
@@ -34,6 +41,18 @@ class CommentsModal extends React.Component {
               value={this.state.commentText}
               onChange={this.setComment}
             />
+            {this.state.preview ? (
+              <img src={this.state.preview} width="100" />
+            ) : (
+              <Dropzone
+                className="custom-dropzone"
+                onDrop={files => this.onDrop(files)}>
+                <div>
+                  Try dropping some files here, or click to select files to
+                  upload.
+                </div>
+              </Dropzone>
+            )}
           </Modal.Body>
           <Modal.Footer>
             <Button onClick={this.props.onClose}>Close</Button>
@@ -50,8 +69,9 @@ class CommentsModal extends React.Component {
 }
 
 const mapDispatchToProps = (dispatch, ownProps) => ({
-  onCommentSubmit: commentText => {
-    dispatch(addCommentAction(commentText, ownProps.taskId))
+  onCommentSubmit: comment => {
+    comment.taskId = ownProps.taskId
+    dispatch(addCommentAction(comment))
   }
 })
 

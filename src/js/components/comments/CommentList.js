@@ -24,6 +24,8 @@ const CommentList = props => {
             glyph="trash"
             onClick={e => onDelete(comment.id)}
           />
+          <br />
+          <img src={comment.preview} width="100" />
         </p>
       ))}
     </div>
