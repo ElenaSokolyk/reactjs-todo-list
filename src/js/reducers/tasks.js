@@ -25,7 +25,6 @@ export const tasksReducer = (state = [], action) => {
       task = find(state, { id: action.id })
       tasks = reject(state, ["id", action.id])
       task.deadline = action.deadline
-      console.log(task.deadline)
       return [...tasks, task]
     default:
       return state

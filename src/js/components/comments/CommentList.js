@@ -2,12 +2,29 @@ import React from "react"
 import { connect } from "react-redux"
 import sortBy from "lodash/sortBy"
 import filter from "lodash/filter"
+import { Glyphicon } from "react-bootstrap"
+import { deleteCommentAction } from "./../../actions/comments"
 
 const CommentList = props => {
+  const onDelete = commentId => {
+    props.onDelete(commentId)
+  }
+
   return (
-    <div>
+    <div className="pull-left" style={{ textAlign: "left" }}>
       {props.comments.map(comment => (
-        <div key={comment.id}>{comment.text}</div>
+        <p key={comment.id}>
+          <span>{comment.text}</span>
+          <span className="text-muted" style={{ marginLeft: "10px" }}>
+            {comment.createdAt}
+          </span>
+          <Glyphicon
+            className="text-muted"
+            style={{ marginLeft: "10px" }}
+            glyph="trash"
+            onClick={e => onDelete(comment.id)}
+          />
+        </p>
       ))}
     </div>
   )
@@ -18,4 +35,10 @@ const mapStateToProps = (store, ownProps) => {
   return { comments: sortBy(comments, ["id"]) }
 }
 
-export default connect(mapStateToProps, null)(CommentList)
+const mapDispatchToProps = (dispatch, ownProps) => ({
+  onDelete: commentId => {
+    dispatch(deleteCommentAction(commentId))
+  }
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(CommentList)

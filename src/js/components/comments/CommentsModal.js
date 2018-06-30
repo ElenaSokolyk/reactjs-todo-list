@@ -34,13 +34,14 @@ class CommentsModal extends React.Component {
               value={this.state.commentText}
               onChange={this.setComment}
             />
-            <CommentList taskId={this.props.taskId} />
           </Modal.Body>
           <Modal.Footer>
             <Button onClick={this.props.onClose}>Close</Button>
             <Button type="submit" bsStyle="primary">
               Save
             </Button>
+            <hr />
+            <CommentList taskId={this.props.taskId} />
           </Modal.Footer>
         </form>
       </Modal>
