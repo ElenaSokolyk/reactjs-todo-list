@@ -9,14 +9,25 @@ import "./../../../css/main.css"
 class CommentsModal extends React.Component {
   constructor(props) {
     super(props)
-    this.state = { commentText: "", preview: "" }
+    this.state = { commentText: "", preview: "", errors: { commentText: "" } }
   }
 
   addComment = e => {
     e.preventDefault()
-    let comment = { text: this.state.commentText, preview: this.state.preview }
-    this.props.onCommentSubmit(comment)
-    this.setState({ commentText: "", preview: "" })
+    if (this.state.commentText.length) {
+      let comment = {
+        text: this.state.commentText,
+        preview: this.state.preview
+      }
+      this.props.onCommentSubmit(comment)
+      this.setState({
+        commentText: "",
+        preview: "",
+        errors: { commentText: "" }
+      })
+    } else {
+      this.setState({ errors: { commentText: "can't be blank" } })
+    }
   }
 
   setComment = e => {
@@ -41,8 +52,9 @@ class CommentsModal extends React.Component {
               value={this.state.commentText}
               onChange={this.setComment}
             />
+            <div className="text-danger">{this.state.errors.commentText}</div>
             {this.state.preview ? (
-              <img src={this.state.preview} width="100" />
+              <img src={this.state.preview} width="100" alt="" />
             ) : (
               <Dropzone
                 className="custom-dropzone"

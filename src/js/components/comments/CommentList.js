@@ -25,7 +25,7 @@ const CommentList = props => {
             onClick={e => onDelete(comment.id)}
           />
           <br />
-          <img src={comment.preview} width="100" />
+          <img src={comment.preview} width="100" alt="" />
         </p>
       ))}
     </div>

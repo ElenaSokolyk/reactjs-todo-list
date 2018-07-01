@@ -1,23 +1,41 @@
 import React from "react"
 import { Grid, FormControl } from "react-bootstrap"
 
-const ProjectForm = props => {
-  let input
-
-  const createProject = (e, onSubmit) => {
-    e.preventDefault()
-    onSubmit(input.value)
-    input.value = ""
+class ProjectForm extends React.Component {
+  constructor(props) {
+    super(props)
+    this.state = { projectName: "", errors: { projectName: "" } }
   }
 
-  return (
-    <Grid>
-      <form onSubmit={e => createProject(e, props.onSubmit)}>
-        <FormControl type="text" inputRef={node => (input = node)} />
-        <button>Add project</button>
-      </form>
-    </Grid>
-  )
+  createProject = (e, onSubmit) => {
+    e.preventDefault()
+    if (this.state.projectName.length) {
+      this.props.onSubmit(this.state.projectName)
+      this.setState({ projectName: "", errors: { projectName: "" } })
+    } else {
+      this.setState({ errors: { projectName: "can't be blank" } })
+    }
+  }
+
+  setProjectText = e => {
+    this.setState({ projectName: e.target.value })
+  }
+
+  render() {
+    return (
+      <Grid>
+        <form onSubmit={this.createProject}>
+          <FormControl
+            type="text"
+            value={this.state.projectName}
+            onChange={this.setProjectText}
+          />
+          <div className="text-danger">{this.state.errors.projectName}</div>
+          <button>Add project</button>
+        </form>
+      </Grid>
+    )
+  }
 }
 
 export default ProjectForm

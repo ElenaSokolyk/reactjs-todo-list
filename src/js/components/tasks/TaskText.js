@@ -22,7 +22,7 @@ class TaskText extends React.Component {
     this.props.onSetDeadline(this.props.task.id, this.props.task.deadline)
   }
 
-  deadline = this.props.task.deadline // TODO: move to state
+  deadline = this.props.task.deadline
 
   changeDate = date => {
     this.props.task.deadline = date.format("DD/MM/YYYY, HH:mm")
